@@ -64,7 +64,10 @@ class Flat(models.Model):
 
 
 class Owner(models.Model):
-    fullname = models.CharField('ФИО владельца', max_length=200)
+    fullname = models.CharField(
+        'ФИО владельца', 
+        max_length=200, 
+        db_index=True)
     phone = models.CharField('Номер владельца', max_length=20)
     pure_phone = PhoneNumberField(
         'Нормализованный номер владельца',
@@ -76,6 +79,9 @@ class Owner(models.Model):
         related_name='owners',
         verbose_name='Квартиры в собственности'
     )
+
+    def __str__(self):
+        return self.fullname
 
 
 class Complaint(models.Model):
