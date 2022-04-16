@@ -10,9 +10,11 @@ def transfer_owner_from_flat(apps: Apps, schema_editor):
 
     for flat in Flat.objects.all().iterator():
         owner, _ = Owner.objects.get_or_create(
-            fullname=flat.owner,
             phone=flat.owners_phonenumber,
-            pure_phone=flat.owners_pure_phone
+            defaults={
+                'fullname': flat.owner,
+                'pure_phone': flat.owners_pure_phone
+                }
         )
         owner.flats.add(flat)
         owner.save()
