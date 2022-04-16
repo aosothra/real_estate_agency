@@ -99,6 +99,5 @@ class Complaint(models.Model):
     )
 
     text = models.TextField(
-        'Текст жалобы',
-        max_length=2000
+        'Текст жалобы'
     )
