@@ -2,14 +2,14 @@
 
 from django.apps.registry import Apps
 from django.db import migrations
+from django.db.models import Q
 
 
 
 def flag_new_buildings(apps: Apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
-        flat.is_building_new = flat.construction_year > 2014
-        flat.save()
+    new_building_year = 2014
+    Flat.objects.update(is_building_new=Q(construction_year__gte=new_building_year))
 
 
 
